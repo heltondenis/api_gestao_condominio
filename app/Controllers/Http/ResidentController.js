@@ -1,5 +1,8 @@
 'use strict'
 
+const Database = use('Database')
+const Resident = use("App/Models/Resident")
+
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
@@ -18,6 +21,12 @@ class ResidentController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
+    const resident_id = request.params.id;
+     const residents = await Database.select('*')
+     .from('residents')
+     .where('resident_id', resident_id)
+
+     return response.status(200).json({ data: residents });
   }
 
   /**
@@ -30,6 +39,19 @@ class ResidentController {
    * @param {View} ctx.view
    */
   async create ({ request, response, view }) {
+
+    const {id, full_name, cpf, fone, date, email } = request.body;
+      try {
+        const residents = await Database
+        .table('residents')
+        .where('id', id)
+        .insert({resident_id: id, full_name: full_name, cpf: cpf,
+          fone: fone, date: date, email: email})
+
+        return response.status(200).json('Residente cadastrado com sucesso');
+      } catch (error) {
+        return response.status(400).json({ error: "Ops! Verifique se você já não cadastrou esse morador." });
+      }
   }
 
   /**
