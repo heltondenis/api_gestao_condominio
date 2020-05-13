@@ -1,6 +1,7 @@
 'use strict'
 
-const Apartament = use('App/Models/Apartament')
+const Database = use('Database')
+const Apartament = use("App/Models/Apartament")
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -35,6 +36,16 @@ class ApartamentController {
    * @param {View} ctx.view
    */
   async create ({ request, response, view }) {
+    const {block, number} = request.body;
+      try {
+        const apartaments = await Database
+        .table('apartaments')
+        .insert({block: block, number: number })
+
+        return response.status(200).json('Apartamento cadastrado com sucesso');
+      } catch (error) {
+        return response.status(400).json({ error: "Ops! Verifique se você já não cadastrou esse apartamento." });
+      }
   }
 
   /**
@@ -58,6 +69,20 @@ class ApartamentController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    const {number} = request.params;
+
+    try {
+      const data = await Database
+      .table('apartaments')
+      .where('number', number)
+      .first()
+
+      return response.status(200).json({ data: data });
+
+    } catch (error) {
+      return response.status(400).json({ error: "Não encontramos a sua busca." });
+    }
+
   }
 
   /**
