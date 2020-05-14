@@ -77,6 +77,10 @@ class ApartamentController {
       .where('number', number)
       .first()
 
+      if(!data) {
+        return response.status(400).send();
+      }
+
       return response.status(200).json({ data: data });
 
     } catch (error) {
@@ -117,6 +121,18 @@ class ApartamentController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
+    const { id } = request.params;
+
+    try {
+      const data = await Database
+      .table('apartaments')
+      .where('id', id)
+      .delete()
+
+      return response.status(204).send();
+    } catch (error) {
+      return response.status(400).json({ error: "Houve algum problema na exclusão." });
+    }
   }
 }
 
