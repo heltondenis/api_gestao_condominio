@@ -11,10 +11,12 @@ Route.post('/sessions', 'SessionController.create')
 Route.get('/apartaments', 'ApartamentController.index')
 Route.get('/apartaments/:number', 'ApartamentController.show')
 Route.post('/apartaments', 'ApartamentController.create')
+Route.delete('/apartaments/:id', 'ApartamentController.destroy')
 
 /** Residents */
 Route.get('/residents/:id', 'ResidentController.index')
 Route.post('/residents', 'ResidentController.create')
+Route.delete('/residents/:id', 'ResidentController.destroy')
 
 
 
