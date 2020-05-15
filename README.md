@@ -1,9 +1,3 @@
-
-## Learn More
-You can learn more in the [Adonis JS](https://adonisjs.com/).
-
-To learn Adonis JS, check out the [Adonis Documentation](https://adonisjs.com/docs/4.1/installation).
-
 <h1 align="center">
     API Gestão de Condomínios
 </h1>
