@@ -110,6 +110,15 @@ class ApartamentController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
+    const { number, block, leased, id } = request.body;
+
+      const data = await Database
+        .table('apartaments')
+        .where('id', id)
+        .update({block: block, number: number })
+
+      return response.status(200).send();
+
   }
 
   /**

@@ -75,6 +75,23 @@ class ResidentController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    const {id} = request.params;
+
+    try {
+      const data = await Database
+      .table('residents')
+      .where('id', id)
+      .first()
+
+      if(!data) {
+        return response.status(400).send();
+      }
+
+      return response.status(200).json({ data: data });
+
+    } catch (error) {
+      return response.status(400).json({ error: "Não encontramos a sua busca." });
+    }
   }
 
   /**
@@ -98,6 +115,19 @@ class ResidentController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
+    const { id } = request.params;
+    const { full_name, cpf, fone, date, email } = request.body;
+
+       const z = await Database
+         .table('residents')
+         .where('id', id)
+         .update({full_name: full_name,
+                 cpf: cpf, fone: fone,
+                 date: date,
+                 email: email
+         })
+
+         return response.status(200).send();
   }
 
   /**
