@@ -21,5 +21,6 @@ Route.put('/residents/people/:id', 'ResidentController.update')
 Route.post('/residents', 'ResidentController.create')
 Route.delete('/residents/:id', 'ResidentController.destroy')
 
-
+/** Admnistrative */
+Route.put('/administrative/verify-check/:id', 'AdmnistrativeController.verifyCheck' );
 

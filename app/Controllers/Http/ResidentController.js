@@ -125,7 +125,7 @@ class ResidentController {
                  cpf: cpf, fone: fone,
                  date: date,
                  email: email
-         })
+         });
 
          return response.status(200).send();
   }

@@ -118,7 +118,6 @@ class ApartamentController {
         .update({block: block, number: number })
 
       return response.status(200).send();
-
   }
 
   /**
